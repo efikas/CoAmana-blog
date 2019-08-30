@@ -1,0 +1,7 @@
+{
+    "name": "BlogPost",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./BlogPost.js"
+  }
+  
