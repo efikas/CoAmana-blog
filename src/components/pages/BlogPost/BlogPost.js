@@ -4,6 +4,7 @@ import { Container,  CardImg, CardText, CardBody, } from 'reactstrap';
 import classes from './../../layouts/Template.module.scss';
 
 class BlogPost extends Component {
+
   constructor(props) {
     super(props);
 
@@ -12,8 +13,22 @@ class BlogPost extends Component {
 
   componentDidMount(){}
 
+  normalizePost = () => {
+
+    if(this.props.posts.length < 1) {
+      this.props.history.push("/");
+    }
+
+    let post = this.props.posts.filter(pos => pos.slug == this.props.match.params.slug);
+
+    if (post.length < 1) {
+      this.props.history.push("/");
+    }
+    return post[0];
+  }
+
   render() {
-    const post = this.props.location.state.post;
+    const post = this.normalizePost();
 
     return (
       <div className="app flex-row align-items-center">
@@ -37,11 +52,9 @@ class BlogPost extends Component {
 const mapStateToProps = (state) => {
   return {
       posts: state.posts,
-      EOC:state.EOC,
-      isLoading: state.isLoading
   }
 }
 
 
 
-export default connect(mapStateToProps, null)(BlogList);
+export default connect(mapStateToProps, null)(BlogPost);
