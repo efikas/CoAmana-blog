@@ -23,13 +23,13 @@ class BlogPost extends Component {
           <h1 className="text-center pt-5" st>{post.title.rendered}</h1>
         </header>
         <Container>
-          <Card className="mb-4">
+          <div className="mb-4">
               <CardImg top width="100%" src={post.featured_image} alt={post.title.rendered} />
                
               <CardBody>
                   <CardText dangerouslySetInnerHTML={{__html: post.content.rendered}}></CardText>
               </CardBody>
-          </Card>
+          </div>
          
         </Container>
       </div>

@@ -30,7 +30,7 @@ class Template extends Component {
                 {/* <Route exact path="/404" name="Page 404" component={Page404} /> */}
               </Switch>
           </BrowserRouter>
-          <footer className="mo-footer" style={{ backgroundColor: '#204d74', color: 'white', paddingTop: '20px' }}>
+          <footer className="mo-footer" style={{ backgroundColor: '#17a2b8', color: 'white', paddingTop: '20px' }}>
             <div className="text-center">
               {' '}
               Copyright &copy; 2019 CoAmana
