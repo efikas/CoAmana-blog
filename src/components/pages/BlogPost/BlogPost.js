@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Col, Container,  Row, Card, CardImg, CardText, CardBody, CardTitle, } from 'reactstrap';
+import { Container,  CardImg, CardText, CardBody, } from 'reactstrap';
 import classes from './../../layouts/Template.module.scss';
 
 class BlogPost extends Component {
@@ -7,20 +7,17 @@ class BlogPost extends Component {
     super(props);
 
     this.state = { };
-    // this.handleClick = this.handleClick.bind(this);
   }
 
-  componentDidMount(){
-    
-    console.log(this.props);
-  }
+  componentDidMount(){}
+
   render() {
     const post = this.props.location.state.post;
 
     return (
       <div className="app flex-row align-items-center">
          <header className={classes.sheader}>
-          <h1 className="text-center pt-5" st>{post.title.rendered}</h1>
+          <h1 className="text-center pt-5">{post.title.rendered}</h1>
         </header>
         <Container>
           <div className="mb-4">
@@ -30,7 +27,6 @@ class BlogPost extends Component {
                   <CardText dangerouslySetInnerHTML={{__html: post.content.rendered}}></CardText>
               </CardBody>
           </div>
-         
         </Container>
       </div>
     );

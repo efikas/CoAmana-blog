@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Container, Row } from 'reactstrap';
+
 
 import classes from './../../layouts/Template.module.scss';
 import logo from '../../../assets/logo.svg';
@@ -8,6 +10,7 @@ import PostTile from '../../partials/PostTile';
 import NavButton from '../../partials/NavButton';
 import Loading from '../../partials/Loading';
 import ReloadPage from '../../partials/ReloadPage';
+import { fetchPosts } from '../../store/actions';
 
 class BlogList extends Component {
 
@@ -15,58 +18,18 @@ class BlogList extends Component {
     super(props);
 
     this.state = {
-      isLoading: true,
-      posts: [],
-      baseUrl: "http://epower.ng/wp-json/wp/v2/posts?page=",
       page: +this.props.match.params.slug || 1,
       perPage: 6,
-      EOC: false, //end of content
      };
     // this.nextPage = this.nextPage.bind(this);
     // this.prevPage = this.prevPage.bind(this);
   }
 
   componentDidMount(){
-
-    console.log(this.props);
     
-    this.getDataFetch(this.state.page);
+    this.props.fetchPosts(this.state.page);
   }
 
-  async getDataFetch(pageNumber) {
-    console.log(pageNumber) ;
-    await fetch(this.state.baseUrl + pageNumber,
-        { headers: {'Content-Type': 'application/json'}}
-      ).then(r => r.json())
-      .then(response => {
-        if(response.hasOwnProperty("data") && response.data.status == 400){
-          this.setState({
-            posts: [],
-            isLoading: false,
-            EOC: true,
-          });
-        }
-        else {
-          this.setState({
-            posts: response,
-            isLoading: false,
-            EOC: false,
-          });
-        }
-
-        
-      })
-      .catch(error => {
-        this.setState({
-          posts: null,
-          isLoading: false,
-          EOC: false,
-        })
-        console.error(error);
-      })
-    // console.log(await response.json())
-    
-}
 
 nextPage = () => {
   this.props.history.push("/posts/page/"+ (this.state.page  + 1));
@@ -74,7 +37,7 @@ nextPage = () => {
       page: prevState.page + 1
   }));
 
-  this.getDataFetch(this.state.page + 1);
+  this.props.fetchPosts(this.state.page + 1);
 }
 
 prevPage = async () => {
@@ -85,11 +48,11 @@ prevPage = async () => {
   }));
 
   
-  this.getDataFetch(this.state.page - 1);
+  this.props.fetchPosts(this.state.page - 1);
 }
 
 normalizePosts() {
-  return this.state.posts.map(post => <PostTile key={post.id} post={post} />);
+  return this.props.posts.map(post => <PostTile key={post.id} post={post} />);
 }
 
 checkForEOC = () => {
@@ -97,7 +60,7 @@ checkForEOC = () => {
   // OR
   // the API return a 400 status message
   // End of Content is true
-  if(this.state.posts.length < this.state.perPage || this.state.EOC) {
+  if(this.props.posts && this.props.posts.length < this.state.perPage || this.props.EOC) {
     return true;
   }
 
@@ -105,6 +68,7 @@ checkForEOC = () => {
 }
 
   render() {
+    
     return (
       <div className="app flex-row align-items-center">
          <header className={classes.sheader}>
@@ -120,13 +84,13 @@ checkForEOC = () => {
           <div className="text-center mb-5 mt-2"><h1> Recent Post</h1></div>
           <Row className="justify-content-right">
             {
-              (this.state.isLoading && <Loading />)
+              (this.props.isLoading && <Loading />)
             }
             {
-              (!this.state.isLoading && this.state.posts == null && <ReloadPage reload={this.getDataFetch} />)
+              (!this.props.isLoading && this.props.posts == null && <ReloadPage reload={this.getDataFetch} />)
             }
             {
-              (!this.state.isLoading && this.state.posts != null && this.state.posts.length > 0 && this.normalizePosts())
+              (!this.props.isLoading && this.props.posts != null && this.props.posts.length > 0 && this.normalizePosts())
             }
           </Row>
 
@@ -145,4 +109,19 @@ checkForEOC = () => {
   }
 }
 
-export default BlogList;
+const mapStateToProps = (state) => {
+  return {
+      posts: state.posts,
+      EOC:state.EOC,
+      isLoading: state.isLoading
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+      fetchPosts: (pageNUm) => dispatch(fetchPosts(pageNUm))
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(BlogList);
