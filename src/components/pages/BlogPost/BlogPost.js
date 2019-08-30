@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Container,  CardImg, CardText, CardBody, } from 'reactstrap';
 import classes from './../../layouts/Template.module.scss';
 
@@ -33,4 +34,14 @@ class BlogPost extends Component {
   }
 }
 
-export default BlogPost;
+const mapStateToProps = (state) => {
+  return {
+      posts: state.posts,
+      EOC:state.EOC,
+      isLoading: state.isLoading
+  }
+}
+
+
+
+export default connect(mapStateToProps, null)(BlogList);
