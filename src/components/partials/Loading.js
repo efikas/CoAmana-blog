@@ -1,7 +1,7 @@
 import React from 'react';
 import {  Spinner } from 'reactstrap';
 
-const  Loading = ({post}) => {
+const  Loading = () => {
     
     const styles = {
         columnsWrapper: {
@@ -9,7 +9,8 @@ const  Loading = ({post}) => {
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
-            justifyContent: "center"
+            justifyContent: "center",
+            paddingRight: "45%",
         }
     }
     

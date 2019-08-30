@@ -7,10 +7,10 @@ const  PostTile = ({post}) => {
     const {featured_image, title, excerpt, slug} = post
     
     return (
-        <Col md="6" className="mb-4">
+        <Col md="4" className="mb-4">
             <Card>
                 <NavLink to={{pathname: "/post/" + slug, state: { post: post }}} >
-                    <CardImg top width="100%" src={featured_image} alt="Card image cap" />
+                    <CardImg top width="100%" height={300} src={featured_image} alt="Card image cap" />
                 </NavLink>
                
                 <CardBody>
@@ -18,7 +18,7 @@ const  PostTile = ({post}) => {
                     <CardText dangerouslySetInnerHTML={{__html: excerpt.rendered}}></CardText>
                     
                     <NavLink to={{pathname: "/post/" + slug, state: { post: post }}} >
-                        <Button outline color="primary">View Post</Button>
+                        <Button outline color="info">View Post</Button>
                     </NavLink>
                 </CardBody>
             </Card>

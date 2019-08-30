@@ -1,7 +1,11 @@
 .sheader {
     color:#FFF; 
-    background-color:#204d74; 
-    height:60px;
+    background-color:#17a2b8; 
+    height:300px;
+    display: "flex";
+    flex-direction: "column";
+    align-items: "center";
+    justify-content: "center";
 
     & a {
         margin-left: 1%;
@@ -15,13 +19,10 @@
         height: 80%;
         margin-top: 6px;
     }
-
-    & span {
-        display: inline-block;
-        margin: 10px;
-        font-size: 0.8em;
-        right: 10px;
+    & h1 {
+        padding-top: 400px
     }
+
 }
 
 .headerImage {
@@ -30,17 +31,11 @@
     margin: 5px;
 }
 
-.pullRight {
-    margin-top: 10px;
-}
-
 .mo-footer {
     color:#FFF; 
-    background-color:#204d74 !important; 
+    background-color:#17a2b8 !important; 
     height: 180px; 
     margin: 20px 0px 0px 0px; 
     padding: 15px 0px 30px 0px;
 }
-
-
 

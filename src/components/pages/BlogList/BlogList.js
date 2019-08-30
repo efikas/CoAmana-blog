@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { Container, Row, Spinner } from 'reactstrap';
+import { Container, Row } from 'reactstrap';
+
+import classes from './../../layouts/Template.module.scss';
+import logo from '../../../assets/logo.svg';
 
 import PostTile from '../../partials/PostTile';
 import NavButton from '../../partials/NavButton';
@@ -104,7 +107,16 @@ checkForEOC = () => {
   render() {
     return (
       <div className="app flex-row align-items-center">
-        <Container>
+         <header className={classes.sheader}>
+            <a href="/">
+              <img
+                src={logo}
+                className={classes.headerImage}
+                alt="COAMANA"
+              />
+            </a>COAMANA
+          </header>
+        <div className="p-5">
           <div className="text-center mb-5 mt-2"><h1> Recent Post</h1></div>
           <Row className="justify-content-right">
             {
@@ -122,12 +134,12 @@ checkForEOC = () => {
 
 
           <div className="text-center mt-4 mb-4">
-            <NavButton page={this.state.page} 
-            nextPage={this.nextPage} 
-            prevPage={this.prevPage} 
-            EOC={this.checkForEOC()} />
+              <NavButton page={this.state.page} 
+              nextPage={this.nextPage} 
+              prevPage={this.prevPage} 
+              EOC={this.checkForEOC()} />
           </div>
-        </Container>
+        </div>
       </div>
     );
   }

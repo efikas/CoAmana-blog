@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import Loadable from 'react-loadable';
-import classes from './Template.module.scss';
 import logo from '../../assets/logo.svg';
 
 const loading = () => <div className="animated fadeIn pt-3 text-center" style={{
@@ -23,15 +22,6 @@ class Template extends Component {
   render() {
     return (
         <div className={"mo-container"}>
-          <header className={classes.sheader}>
-            <a href="/">
-              <img
-                src={logo}
-                className={classes.headerImage}
-                alt="COAMANA"
-              />
-            </a>COAMANA
-          </header>
           <BrowserRouter>
               <Switch>
                 <Route exact path="/" name="Home" component={BlogList} />
